@@ -1,5 +1,6 @@
 package com.practice.myhome.fakeInstar;
 
+import com.practice.myhome.fakeInstar.databinding.ActivityMainBinding;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -23,28 +24,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding.setLifecycleOwner(this);
+
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.appBarMain.toolbar);
+        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            .setAction("Actions", null).show());
+
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
+                .setDrawerLayout(binding.drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
     @Override
