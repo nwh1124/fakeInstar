@@ -117,12 +117,12 @@ public class Util {private static Application application;
 
     public static void loadImageOn(String imgUrl, ImageView imageView, int borderRadius) {
         if (borderRadius > 0) {
-            Glide.with(application)
+            GlideApp.with(application)
                     .load(imgUrl)
                     .transform(new CenterCrop(), new RoundedCorners((int) dipToPixels(borderRadius)))
                     .into(imageView);
         } else {
-            Glide.with(application)
+            GlideApp.with(application)
                     .load(imgUrl)
                     .into(imageView);
         }
