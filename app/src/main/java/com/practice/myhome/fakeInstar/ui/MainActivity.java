@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.addHeaderView(navHeaderMainBinding.getRoot());
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home_main, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(binding.drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
