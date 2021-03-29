@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.practice.myhome.fakeInstar.util.Util;
 
+import dagger.hilt.android.HiltAndroidApp;
 
+@HiltAndroidApp
 public class MyApplication extends Application {
 
     @Override

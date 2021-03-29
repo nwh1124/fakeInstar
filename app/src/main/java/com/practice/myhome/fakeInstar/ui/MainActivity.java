@@ -3,12 +3,9 @@ package com.practice.myhome.fakeInstar.ui;
 import com.practice.myhome.fakeInstar.R;
 import com.practice.myhome.fakeInstar.databinding.ActivityMainBinding;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -18,11 +15,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.practice.myhome.fakeInstar.databinding.ActivityMainBinding;
 import com.practice.myhome.fakeInstar.databinding.NavHeaderMainBinding;
-import com.google.android.material.snackbar.Snackbar;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
