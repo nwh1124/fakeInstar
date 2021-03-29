@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,12 +33,10 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         binding.setLifecycleOwner(this);
 
-        MainViewModel vm = new MainViewModel();
+//        MainViewModel vm = new MainViewModel();
+        MainViewModel vm = new ViewModelProvider(this).get(MainViewModel.class);
         binding.setMainVm(vm);
         setContentView(binding.getRoot());
-
-        // 아바타 이미지 세팅
-        vm.lvAvatarImgUrl.setValue("https://i.pravatar.cc/600?img=37");
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
