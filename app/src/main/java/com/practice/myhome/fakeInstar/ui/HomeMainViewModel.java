@@ -8,9 +8,9 @@ public class HomeMainViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeMainViewModel(){
+    public HomeMainViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue(("홈 프래그먼트"));
+        mText.setValue("날이 참 좋네요.");
     }
 
     public LiveData<String> getText() {
