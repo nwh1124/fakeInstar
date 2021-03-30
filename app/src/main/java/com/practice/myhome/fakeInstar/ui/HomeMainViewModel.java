@@ -4,16 +4,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.practice.myhome.fakeInstar.dto.Article;
+import com.practice.myhome.fakeInstar.service.ArticleService;
+import com.practice.myhome.fakeInstar.util.Util;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class HomeMainViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    public RecyclerViewAdapterArticle recyclerViewAdapterArticle;
+    public MutableLiveData<Article> lvFirstArticle = new MutableLiveData<>();
 
-    public HomeMainViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("날이 참 좋네요.");
-    }
+    @Inject
+    public HomeMainViewModel(ArticleService articleService) {
+        recyclerViewAdapterArticle = new RecyclerViewAdapterArticle();
 
-    public LiveData<String> getText() {
-        return mText;
+        articleService.usr_article_list(1, 1, rb -> {
+            recyclerViewAdapterArticle.addArticles(rb.body.articles);
+        });
     }
 }

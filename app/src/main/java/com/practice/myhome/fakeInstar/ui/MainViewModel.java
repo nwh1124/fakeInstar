@@ -21,13 +21,9 @@ public class MainViewModel extends ViewModel {
     public MutableLiveData<String> lvAvatarImgUrl = new MutableLiveData<>();
 
     @Inject
-    public MainViewModel(@NonNull Application application, ArticleService articleService){
+    public MainViewModel(@NonNull Application application){
         // 아바타 이미지 세팅
         String avatarImgUrl = "https://i.pravatar.cc/600?img=" + new Random().nextInt(10) + 1;
         lvAvatarImgUrl.setValue(avatarImgUrl);
-
-        articleService.usr_article_list(1, 1, rb -> {
-            Util.log("articles : " + rb.body.articles);
-        });
     }
 }

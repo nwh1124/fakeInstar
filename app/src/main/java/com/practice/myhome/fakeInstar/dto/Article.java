@@ -20,6 +20,10 @@ public class Article {
     public Map<String, Object> extra;
     public String writerThumbImgUrl;
 
+    public String getThumbImgUrl() {
+        return "http://10.0.2.2:8021/common/genFile/file/article/" + id + "/common/attachment/1";
+    }
+
     @Override
     public String toString() {
         return "Article{" +
