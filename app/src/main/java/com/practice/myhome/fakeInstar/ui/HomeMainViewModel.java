@@ -22,6 +22,13 @@ public class HomeMainViewModel extends ViewModel {
     public HomeMainViewModel(ArticleService articleService) {
         recyclerViewAdapterArticle = new RecyclerViewAdapterArticle();
 
+        recyclerViewAdapterArticle.setOnClickItem((v) -> {
+            int articleIndex = (int)v.getTag();
+            Article article = recyclerViewAdapterArticle.getArticle(articleIndex);
+
+            Util.toast(article.id + "번 게시물");
+        });
+
         articleService.usr_article_list(1, 1, rb -> {
             recyclerViewAdapterArticle.addArticles(rb.body.articles);
         });
