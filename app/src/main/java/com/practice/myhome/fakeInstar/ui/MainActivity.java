@@ -20,7 +20,7 @@ import com.practice.myhome.fakeInstar.databinding.NavHeaderMainBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 

@@ -16,8 +16,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.myhome.fakeInstar.ui.BaseActivity;
 
-public class Util {private static Application application;
+public class Util {
+    private static Application application;
+    private static BaseActivity currentActivity;
     private static SharedPreferences sp;
     private static SharedPreferences.Editor spEditor;
 
@@ -132,5 +135,13 @@ public class Util {private static Application application;
     public static void setTimeout(Runnable r, int delay) {
         new android.os.Handler(Looper.getMainLooper()).postDelayed(r, delay);
 
+    }
+
+    public static void setCurrentActivity(BaseActivity baseActivity) {
+        Util.currentActivity = baseActivity;
+    }
+
+    public static <T extends BaseActivity> T getCurrentActivity() {
+        return (T) Util.currentActivity;
     }
 }
