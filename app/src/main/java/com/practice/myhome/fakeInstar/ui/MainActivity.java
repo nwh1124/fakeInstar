@@ -16,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.practice.myhome.fakeInstar.databinding.NavHeaderMainBinding;
+import com.practice.myhome.fakeInstar.util.Util;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity {
                 R.id.nav_home_main, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(binding.drawerLayout)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController = Util.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }

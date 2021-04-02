@@ -1,9 +1,13 @@
 package com.practice.myhome.fakeInstar.ui;
 
+import android.os.Bundle;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.NavController;
 
+import com.practice.myhome.fakeInstar.R;
 import com.practice.myhome.fakeInstar.dto.Article;
 import com.practice.myhome.fakeInstar.service.ArticleService;
 import com.practice.myhome.fakeInstar.util.Util;
@@ -23,10 +27,14 @@ public class HomeMainViewModel extends ViewModel {
         recyclerViewAdapterArticle = new RecyclerViewAdapterArticle();
 
         recyclerViewAdapterArticle.setOnClickItem((v) -> {
-            int articleIndex = (int)v.getTag();
+            int articleIndex = (int) v.getTag();
             Article article = recyclerViewAdapterArticle.getArticle(articleIndex);
 
-            Util.toast(article.id + "번 게시물");
+            NavController navController = Util.getNavController();
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", article.id);
+            navController.navigate(R.id.nav_article_detail, bundle);
         });
 
         articleService.usr_article_list(1, 1, rb -> {
