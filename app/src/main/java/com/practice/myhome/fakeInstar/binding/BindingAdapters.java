@@ -11,12 +11,12 @@ public class BindingAdapters {
 
     @BindingAdapter({"imgUrl"})
     public static void imgUrl(ImageView view, String imgUrl){
-        Util.loadImageOn(imgUrl, view);
+        Util.loadImageOnByFinalUrl(imgUrl, view);
     }
 
     @BindingAdapter({"imgUrl", "borderRadius"})
     public static void imgUrl(ImageView view, String imgUrl, int borderRadius){
-        Util.loadImageOn(imgUrl, view, borderRadius);
+        Util.loadImageOnByFinalUrl(imgUrl, view, borderRadius);
     }
 
     @BindingAdapter({"adapter"})

@@ -21,7 +21,7 @@ public class Article {
     public String writerThumbImgUrl;
 
     public String getThumbImgUrl() {
-        return "http://10.0.2.2:8021/common/genFile/file/article/" + id + "/common/attachment/1";
+        return "http://10.0.2.2:8085/img?failWidth=700&failHeight=400&failText=U.U&url=http://localhost:8021/common/genFile/file/article/" + id + "/common/attachment/1";
     }
 
     @Override

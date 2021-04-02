@@ -14,6 +14,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,6 +23,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.myhome.fakeInstar.R;
 import com.practice.myhome.fakeInstar.ui.BaseActivity;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Util {
     private static Application application;
@@ -123,17 +136,78 @@ public class Util {
     }
 
     public static void loadImageOn(String imgUrl, ImageView imageView, int borderRadius) {
+        GlideUrl url = new GlideUrl(imgUrl, new LazyHeaders.Builder()
+                .addHeader("Usr-Agent", "your-user-agent")
+                .build());
+
         if (borderRadius > 0) {
             GlideApp.with(application)
-                    .load(imgUrl)
+                    .load(url)
                     .transform(new CenterCrop(), new RoundedCorners((int) dipToPixels(borderRadius)))
                     .into(imageView);
         } else {
             GlideApp.with(application)
-                    .load(imgUrl)
+                    .load(url)
                     .into(imageView);
         }
 
+    }
+
+    public static void loadImageOnByFinalUrl(String imgUrl, ImageView imageView) {
+        loadImageOnByFinalUrl(imgUrl, imageView, 0);
+    }
+
+    public static void loadImageOnByFinalUrl(String imgUrl, ImageView imageView, int borderRadius) {
+
+        Observable<String> observable = Observable.create(subscriber -> {
+            // 여기는 별도의 쓰레드에서 실행됨
+            subscriber.onNext(getRedirectFinalUrl(imgUrl));
+            subscriber.onComplete();
+        });
+
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull String s) {
+                        // 여기는 UI의 쓰레드에서 실행됨
+                        loadImageOn(s, imageView, borderRadius);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public static String getRedirectFinalUrl(String url) {
+        try {
+            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+            con.setInstanceFollowRedirects(false);
+            con.connect();
+            con.getInputStream();
+
+            if (con.getResponseCode() == HttpURLConnection.HTTP_MOVED_PERM || con.getResponseCode() == HttpURLConnection.HTTP_MOVED_TEMP) {
+                String redirectUrl = con.getHeaderField("Location");
+                return getRedirectFinalUrl(redirectUrl);
+            }
+        } catch (IOException e) {
+
+        }
+        return url;
     }
 
     public static void setTimeout(Runnable r, int delay) {
