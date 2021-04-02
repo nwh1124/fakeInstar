@@ -51,6 +51,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.lvArticle.thumbImgUrl}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>
